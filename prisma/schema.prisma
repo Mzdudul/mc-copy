@@ -16,7 +16,7 @@ datasource db {
 model Restaurant {
   id             String         @id @default(uuid())
   name           String
-  slug           String
+  slug           String         @unique
   description    String
   avatarImageUrl String
   coverImageUrl  String
@@ -58,7 +58,7 @@ model Oreder {
   total           Float
   status          String
   consumptionTime ConsumptionMethod
-  restaurant      Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade)  
+  restaurant      Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   restaurantId    String
   orderProducts   OrderProduct[]
   createdAt       DateTime          @default(now())
