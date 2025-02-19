@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
-import Image from "next/image"
 import { db } from "../../../../prisma"
 
 import { notFound } from "next/navigation"
+
+import RestaurantHeader from "./components/header"
 
 interface RestaurantMenuPageProps {
     params: Promise<{ slug: string }>
@@ -22,14 +24,7 @@ const RestaurantMenuPage = async ({params, searchParams}: RestaurantMenuPageProp
     const restaurant = await db.restaurant.findUnique({where: {slug}})
     return (
         <div>
-            <div className="relative h-[250px] w-full">
-                <Image
-                 src={restaurant?.coverImageUrl || ''}
-                 alt={restaurant?.name || ''}
-                 fill
-                 className="object-cover" 
-                />                
-            </div>
+            <RestaurantHeader restaurant={restaurant as any } />
 
         </div>
      );
